@@ -22,8 +22,14 @@
             />
           </video>
           <div class="header__audio-btn">
-            <img class="header__audio-btn-icon-off" src="../assets/images/audio-off.svg">
-            <img class="header__audio-btn-icon-on" src="../assets/images/audio-on.svg"> 
+            <img
+              class="header__audio-btn-icon-off"
+              src="../assets/images/audio-off.svg"
+            />
+            <img
+              class="header__audio-btn-icon-on"
+              src="../assets/images/audio-on.svg"
+            />
           </div>
         </div>
       </div>
@@ -480,8 +486,6 @@
           document.body.style.setProperty('--scrollbarWidth', `0px`);
         }
 
-        //
-
         var videoTag = document.querySelector('.header__video--js'),
           videoSourceTag = document.querySelector('.header__video--js source'),
           videoSourceSrc = videoSourceTag.getAttribute('src'),
@@ -508,26 +512,24 @@
         window.addEventListener('load', setVideoSource);
         window.addEventListener('resize', setVideoSource);
 
+        var audioBtn = document.querySelector('.header__audio-btn');
+        var audioIconOff = document.querySelector(
+          '.header__audio-btn-icon-off',
+        );
+        var audioIconOn = document.querySelector('.header__audio-btn-icon-on');
 
-       var audioBtn = document.querySelector('.header__audio-btn');
-       var audioIconOff = document.querySelector('.header__audio-btn-icon-off');
-       var audioIconOn = document.querySelector('.header__audio-btn-icon-on');
-
-        audioBtn.addEventListener('click', function(){
-    
-          if(videoTag.muted === false) {
+        audioBtn.addEventListener('click', function () {
+          if (videoTag.muted === false) {
             videoTag.muted = true;
             audioIconOn.style.opacity = '0';
             audioIconOff.style.opacity = '1';
-            } 
-          else {
+          } else {
             videoTag.muted = false;
             audioIconOn.style.opacity = '1';
             audioIconOff.style.opacity = '0';
           }
-   
-        })
-  })();
+        });
+      })();
     </script>
   </body>
 </html>
