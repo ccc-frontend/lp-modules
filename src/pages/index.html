@@ -476,8 +476,8 @@
     </div>
 
     <script>
-      //.c-header
-      waitForElement('.gallery', function () {
+      // waitForElement('.c-header', function () {
+      (function () {
         var scrollbarWidth = window.innerWidth - document.body.clientWidth;
         if (navigator.appVersion.indexOf('Win') != -1) {
           document.body.style.setProperty(
@@ -487,12 +487,12 @@
         } else {
           document.body.style.setProperty('--scrollbarWidth', `0px`);
         }
-
         var videoTag = document.querySelector('.header__video--js'),
           videoSourceTag = document.querySelector('.header__video--js source'),
           videoSourceSrc = videoSourceTag.getAttribute('src'),
           videoSourceDataSrc = videoSourceTag.getAttribute('data-src'),
           tabletMediaQuery = 764;
+
         function setVideoSource() {
           var windowWidth = window.innerWidth,
             videoSource = videoSourceTag.getAttribute('src');
@@ -510,7 +510,6 @@
         }
         window.addEventListener('load', setVideoSource);
         window.addEventListener('resize', setVideoSource);
-
         var audioBtn = document.querySelector('.header__audio-btn');
         var audioIconOff = document.querySelector(
           '.header__audio-btn-icon-off',
@@ -527,7 +526,8 @@
             audioIconOff.style.opacity = '0';
           }
         });
-      });
+      })();
+      // });
 
       function waitForElement(elementId, callBack) {
         window.setTimeout(function () {
