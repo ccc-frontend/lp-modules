@@ -476,9 +476,8 @@
     </div>
 
     <script>
-      (function () {
+      waitForElement('.button__link', function () {
         var scrollbarWidth = window.innerWidth - document.body.clientWidth;
-
         if (navigator.appVersion.indexOf('Win') != -1) {
           document.body.style.setProperty(
             '--scrollbarWidth',
@@ -493,11 +492,9 @@
           videoSourceSrc = videoSourceTag.getAttribute('src'),
           videoSourceDataSrc = videoSourceTag.getAttribute('data-src'),
           tabletMediaQuery = 764;
-
         function setVideoSource() {
           var windowWidth = window.innerWidth,
             videoSource = videoSourceTag.getAttribute('src');
-
           if (windowWidth > tabletMediaQuery) {
             if (videoSource !== videoSourceDataSrc) {
               videoSourceTag.setAttribute('src', videoSourceDataSrc);
@@ -510,7 +507,6 @@
             }
           }
         }
-
         window.addEventListener('load', setVideoSource);
         window.addEventListener('resize', setVideoSource);
 
@@ -519,7 +515,6 @@
           '.header__audio-btn-icon-off',
         );
         var audioIconOn = document.querySelector('.header__audio-btn-icon-on');
-
         audioBtn.addEventListener('click', function () {
           if (videoTag.muted === false) {
             videoTag.muted = true;
@@ -531,7 +526,18 @@
             audioIconOff.style.opacity = '0';
           }
         });
-      })();
+      });
+
+      function waitForElement(elementId, callBack) {
+        window.setTimeout(function () {
+          var element = document.querySelectorAll(elementId);
+          if (element.length) {
+            callBack(elementId, element);
+          } else {
+            waitForElement(elementId, callBack);
+          }
+        }, 200);
+      }
     </script>
   </body>
 </html>
