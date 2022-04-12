@@ -8,31 +8,35 @@
     <div class="main">
       <div class="header">
         <div class="header__wrapper">
-          <div style="padding: 56.25% 0 0 0; position: relative">
-            <iframe
-              src="https://player.vimeo.com/video/686607149?h=fb6a430eef&background=1&quality=1080p"
-              frameborder="0"
-              allow="autoplay"
-              class="main-video--js"
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-              "
-              title="CCC video"
-            ></iframe>
-          </div>
-
-          <div class="header__audio-btn">
+          <video
+            class="header__video header__video--js"
+            autoplay
+            loop
+            muted
+            playsinline
+          >
+            <source
+              data-src="../assets/video/sprandi-home.mp4"
+              src="../assets/video/video-764x764.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div class="header__audio-btn header__audio-btn--js">
             <img
-              class="header__audio-btn-icon-off"
+              class="
+                header__audio-btn-icon
+                header__audio-btn-icon--off
+                header__audio-btn-icon--off-js
+              "
               src="../assets/images/audio-off.svg"
               alt=""
             />
             <img
-              class="header__audio-btn-icon-on"
+              class="
+                header__audio-btn-icon
+                header__audio-btn-icon--on
+                header__audio-btn-icon--on--js
+              "
               src="../assets/images/audio-on.svg"
               alt=""
             />
@@ -52,21 +56,12 @@
         <div class="gallery__item gallery__item--m gallery__item--js">
           <div class="gallery__wrapper gallery__wrapper--js">
             <a href="#" class="gallery__link">
-              <div style="padding: 128.15% 0 0 0; position: relative">
-                <iframe
-                  src="https://player.vimeo.com/video/686607125?h=836a2f413d&background=1&quality=1080p"
-                  frameborder="0"
-                  allow="autoplay"
-                  style="
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                  "
-                  title="video-1080x1384"
-                ></iframe>
-              </div>
+              <video class="gallery__video" autoplay loop muted playsinline>
+                <source
+                  src="../assets/video/video-1080x1384.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </a>
           </div>
 
@@ -169,20 +164,12 @@
         <div class="gallery__item gallery__item--s gallery__item--js">
           <div class="gallery__wrapper gallery__wrapper--js">
             <a href="#" class="gallery__link">
-              <div style="padding: 128.15% 0 0 0; position: relative">
-                <iframe
-                  src="https://player.vimeo.com/video/686607125?h=836a2f413d&background=1&quality=1080p"
-                  frameborder="0"
-                  style="
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                  "
-                  title="video-1080x1384"
-                ></iframe>
-              </div>
+              <video class="gallery__video" autoplay loop muted playsinline>
+                <source
+                  src="../assets/video/video-645x826.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </a>
           </div>
 
@@ -587,35 +574,9 @@
       })();
     </script>
 
-    <script src="https://player.vimeo.com/api/player.js"></script>
-
     <script>
       // waitForElement('.c-header', function () {
       (function () {
-        var mainVideo = document.querySelector('.main-video--js');
-        var player = new Vimeo.Player(mainVideo);
-        var audioBtn = document.querySelector('.header__audio-btn');
-        var audioIconOff = document.querySelector(
-          '.header__audio-btn-icon-off',
-        );
-        var audioIconOn = document.querySelector('.header__audio-btn-icon-on');
-
-        player.setVolume(0);
-
-        audioBtn.addEventListener('click', function () {
-          player.getVolume().then(function (volume) {
-            if (volume !== 0) {
-              player.setVolume(0);
-              audioIconOn.style.opacity = '0';
-              audioIconOff.style.opacity = '1';
-            } else {
-              player.setVolume(1);
-              audioIconOn.style.opacity = '1';
-              audioIconOff.style.opacity = '0';
-            }
-          });
-        });
-
         var scrollbarWidth = window.innerWidth - document.body.clientWidth;
         if (navigator.appVersion.indexOf('Win') != -1) {
           document.body.style.setProperty(
@@ -625,6 +586,48 @@
         } else {
           document.body.style.setProperty('--scrollbarWidth', `0px`);
         }
+        var videoTag = document.querySelector('.header__video--js'),
+          videoSourceTag = document.querySelector('.header__video--js source'),
+          videoSourceSrc = videoSourceTag.getAttribute('src'),
+          videoSourceDataSrc = videoSourceTag.getAttribute('data-src'),
+          tabletMediaQuery = 764;
+
+        function setVideoSource() {
+          var windowWidth = window.innerWidth,
+            videoSource = videoSourceTag.getAttribute('src');
+          if (windowWidth > tabletMediaQuery) {
+            if (videoSource !== videoSourceDataSrc) {
+              videoSourceTag.setAttribute('src', videoSourceDataSrc);
+              videoTag.load();
+            }
+          } else {
+            if (videoSource !== videoSourceSrc) {
+              videoSourceTag.setAttribute('src', videoSourceSrc);
+              videoTag.load();
+            }
+          }
+        }
+        window.addEventListener('load', setVideoSource);
+        window.addEventListener('resize', setVideoSource);
+
+        var audioBtn = document.querySelector('.header__audio-btn--js');
+        var audioIconOff = document.querySelector(
+          '.header__audio-btn-icon--off-js',
+        );
+        var audioIconOn = document.querySelector(
+          '.header__audio-btn-icon--on-js',
+        );
+        audioBtn.addEventListener('click', function () {
+          if (videoTag.muted === false) {
+            videoTag.muted = true;
+            audioIconOn.style.opacity = '0';
+            audioIconOff.style.opacity = '1';
+          } else {
+            videoTag.muted = false;
+            audioIconOn.style.opacity = '1';
+            audioIconOff.style.opacity = '0';
+          }
+        });
       })();
       // });
 
