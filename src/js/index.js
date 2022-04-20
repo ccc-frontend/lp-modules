@@ -1,7 +1,5 @@
 import '../scss/main.scss';
 
-console.log('test');
-
 // const videoTag = document.querySelector('.header__video--js');
 // const videoSourceTag = document.querySelector('.header__video--js source');
 // const videoSourceSrc = videoSourceTag.getAttribute('src');
