@@ -581,7 +581,7 @@
         if (navigator.appVersion.indexOf('Win') != -1) {
           document.body.style.setProperty(
             '--scrollbarWidth',
-            `${scrollbarWidth}px`,
+            `${scrollbarWidth}px`
           );
         } else {
           document.body.style.setProperty('--scrollbarWidth', `0px`);
@@ -612,10 +612,10 @@
 
         var audioBtn = document.querySelector('.header__audio-btn--js');
         var audioIconOff = document.querySelector(
-          '.header__audio-btn-icon--off-js',
+          '.header__audio-btn-icon--off-js'
         );
         var audioIconOn = document.querySelector(
-          '.header__audio-btn-icon--on-js',
+          '.header__audio-btn-icon--on-js'
         );
         audioBtn.addEventListener('click', function () {
           if (videoTag.muted === false) {
